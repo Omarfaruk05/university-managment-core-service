@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\.7b345caeb4694f605b98606f2aa482f6be24c602-audit.json",
+    "files": [
+        {
+            "date": 1692556833736,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-21-08-00-error.log",
+            "hash": "79c05fee5178d59d292d622bca2a2b804681bd0bdccfc29d914e2e63c67ca947"
+        },
+        {
+            "date": 1692558014943,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-21-08-01-error.log",
+            "hash": "ea5061caf1cf8843a71f7fa892bcb43a50361f8169cce397c934c13909a52147"
+        },
+        {
+            "date": 1692631492802,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-21-08-21-error.log",
+            "hash": "c01356de7c5e6a714ddadee2919cb3e05b84df7b4de1f754d2c251461e112c6e"
+        }
+    ],
+    "hashType": "sha256"
+}

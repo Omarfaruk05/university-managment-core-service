@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\successes\\.837dd604f734697196ae27c1848738dd8385dd6f-audit.json",
+    "files": [
+        {
+            "date": 1692556833731,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\successes\\phu-2023-21-08-00-success.log",
+            "hash": "751bd14e25fa6cc8d75e55d63967d06d6f65d56e4f64c3dd60f53cb08d625160"
+        },
+        {
+            "date": 1692558014936,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\successes\\phu-2023-21-08-01-success.log",
+            "hash": "59d211c0393992cb5089ba7259af27d71952d0fb6245d944fc8cf701daac4519"
+        },
+        {
+            "date": 1692631492797,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\successes\\phu-2023-21-08-21-success.log",
+            "hash": "cdacea0dd68407c8cd702ff31d8eb59cdbc790f1bc4a97110b2fe13d313b759b"
+        }
+    ],
+    "hashType": "sha256"
+}
