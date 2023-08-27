@@ -10,11 +10,35 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Semester Registration is successfully',
+    message: 'Semester Registration created successfully',
+    data: result,
+  });
+});
+const updateInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await SemesterRegistrationService.updateInDB(id, req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Semester Registration updated successfully',
+    data: result,
+  });
+});
+const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await SemesterRegistrationService.deleteByIdFromDB(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Semester Registration deleted successfully',
     data: result,
   });
 });
 
 export const SemseterRegistrationController = {
   insertIntoDB,
+  updateInDB,
+  deleteByIdFromDB,
 };
