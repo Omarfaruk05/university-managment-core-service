@@ -4,5 +4,6 @@ import { OfferedCourseClassScheduleController } from './offeredCourseClassSchedu
 const router = express.Router();
 
 router.post('/', OfferedCourseClassScheduleController.insertIntoDB);
+router.get('/', OfferedCourseClassScheduleController.getAllFromDB);
 
 export const OfferedCourseClassScheduleRotues = router;
