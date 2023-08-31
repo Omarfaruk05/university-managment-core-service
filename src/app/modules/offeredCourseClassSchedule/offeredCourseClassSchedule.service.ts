@@ -3,7 +3,11 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { offeredCourseClassScheduleSearchableFields } from './offeredCourseClassSchedule.constant';
+import {
+  offeredCourseClassScheduleRelationalFields,
+  offeredCourseClassScheduleRelationalFieldsMapper,
+  offeredCourseClassScheduleSearchableFields,
+} from './offeredCourseClassSchedule.constant';
 import { IOfferedCourseClassScheduleFilterRequiest } from './offeredCourseClassSchedule.interface';
 import { OfferedCourseClassScheduleUtils } from './offeredCourseClassSchedules.utils';
 
@@ -11,6 +15,7 @@ const insertIntoDB = async (
   data: OfferedCourseClassSchedule
 ): Promise<OfferedCourseClassSchedule> => {
   await OfferedCourseClassScheduleUtils.checkRoomAbailable(data);
+  await OfferedCourseClassScheduleUtils.checkFacultyAvailable(data);
 
   const result = await prisma.offeredCourseClassSchedule.create({
     data,

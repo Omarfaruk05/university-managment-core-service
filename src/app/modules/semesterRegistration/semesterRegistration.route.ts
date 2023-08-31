@@ -12,6 +12,7 @@ router.post(
   validateRequest(SemesterRegistrationValidation.createZodSchem),
   SemseterRegistrationController.insertIntoDB
 );
+router.post('/start-registration', auth(ENUM_USER_ROLE.STUDENT));
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),

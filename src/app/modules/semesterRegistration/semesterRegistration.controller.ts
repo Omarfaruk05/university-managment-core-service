@@ -14,6 +14,19 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await SemesterRegistrationService.startMyRegistration(
+    user.userId
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student semester registration created successfully',
+    data: result,
+  });
+});
 const updateInDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await SemesterRegistrationService.updateInDB(id, req.body);
@@ -41,4 +54,5 @@ export const SemseterRegistrationController = {
   insertIntoDB,
   updateInDB,
   deleteByIdFromDB,
+  startMyRegistration,
 };
