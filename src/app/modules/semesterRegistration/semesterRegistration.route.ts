@@ -12,13 +12,38 @@ router.post(
   validateRequest(SemesterRegistrationValidation.createZodSchem),
   SemseterRegistrationController.insertIntoDB
 );
-router.post('/start-registration', auth(ENUM_USER_ROLE.STUDENT));
+
+router.post(
+  '/start-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemseterRegistrationController.startMyRegistration
+);
+
+router.post(
+  '/enroll-into-course',
+  validateRequest(
+    SemesterRegistrationValidation.enrollOrWithdrawCourseZodSchema
+  ),
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemseterRegistrationController.enrollInotCourse
+);
+
+router.post(
+  '/withdraw-from-course',
+  validateRequest(
+    SemesterRegistrationValidation.enrollOrWithdrawCourseZodSchema
+  ),
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemseterRegistrationController.withdrawFromCourse
+);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(SemesterRegistrationValidation.updateZodSchem),
   SemseterRegistrationController.updateInDB
 );
+
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),

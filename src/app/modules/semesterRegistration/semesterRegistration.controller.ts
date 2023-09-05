@@ -14,6 +14,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
 const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const result = await SemesterRegistrationService.startMyRegistration(
@@ -27,6 +28,37 @@ const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+const enrollInotCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await SemesterRegistrationService.enrollIntoCourse(
+    user.userId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student semester registration enrolled successfully',
+    data: result,
+  });
+});
+
+const withdrawFromCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await SemesterRegistrationService.withdrawFromCourse(
+    user.userId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student withdraw from course successfully',
+    data: result,
+  });
+});
+
 const updateInDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await SemesterRegistrationService.updateInDB(id, req.body);
@@ -38,6 +70,7 @@ const updateInDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
 const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await SemesterRegistrationService.deleteByIdFromDB(id);
@@ -55,4 +88,6 @@ export const SemseterRegistrationController = {
   updateInDB,
   deleteByIdFromDB,
   startMyRegistration,
+  enrollInotCourse,
+  withdrawFromCourse,
 };

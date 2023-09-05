@@ -6,6 +6,8 @@ import {
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
+import { StudentSemesterRegistrationCourseService } from '../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
+import { IEnrollCoursePayload } from './semesterRegistration.interface';
 
 const insertIntoDB = async (
   data: SemesterRegistration
@@ -106,6 +108,30 @@ const startMyRegistration = async (
   };
 };
 
+const enrollIntoCourse = async (
+  authUserId: string,
+  payload: IEnrollCoursePayload
+): Promise<{
+  message: string;
+}> => {
+  return StudentSemesterRegistrationCourseService.enrollIntoCourse(
+    authUserId,
+    payload
+  );
+};
+
+const withdrawFromCourse = async (
+  authUserId: string,
+  payload: IEnrollCoursePayload
+): Promise<{
+  message: string;
+}> => {
+  return StudentSemesterRegistrationCourseService.withdrawFromCourse(
+    authUserId,
+    payload
+  );
+};
+
 const updateInDB = async (
   id: string,
   payload: Partial<SemesterRegistration>
@@ -172,4 +198,6 @@ export const SemesterRegistrationService = {
   updateInDB,
   deleteByIdFromDB,
   startMyRegistration,
+  enrollIntoCourse,
+  withdrawFromCourse,
 };
