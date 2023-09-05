@@ -6,6 +6,13 @@ import { SemseterRegistrationController } from './semesterRegistration.controlle
 import { SemesterRegistrationValidation } from './semseterRegirtration.validation';
 
 const router = express.Router();
+
+router.get(
+  '/get-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemseterRegistrationController.getMyRegistration
+);
+
 router.post(
   '/',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
@@ -35,6 +42,12 @@ router.post(
   ),
   auth(ENUM_USER_ROLE.STUDENT),
   SemseterRegistrationController.withdrawFromCourse
+);
+
+router.post(
+  '/confirm-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemseterRegistrationController.confirmMyRegistration
 );
 
 router.patch(
