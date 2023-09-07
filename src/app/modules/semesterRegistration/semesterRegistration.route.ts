@@ -50,6 +50,12 @@ router.post(
   SemseterRegistrationController.confirmMyRegistration
 );
 
+router.post(
+  '/:id/start-new-semester',
+  auth(ENUM_USER_ROLE.ADMIN),
+  SemseterRegistrationController.startNewSemester
+);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
