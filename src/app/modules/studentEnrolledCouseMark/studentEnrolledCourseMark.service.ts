@@ -16,48 +16,84 @@ const createStudentEnrolledCourseDefaultMark = async (
   }
 ) => {
   // for midterm
-  await prismaClient.studentEnrolledCourseMark.create({
-    data: {
-      student: {
-        connect: {
+  const isExistMidtermData =
+    await prismaClient.studentEnrolledCourseMark.findFirst({
+      where: {
+        examType: ExamTypeStatus.MIDTERM,
+        student: {
           id: payload.studentId,
         },
-      },
-      studentEnrolledCourse: {
-        connect: {
+        studentEnrolledCourse: {
           id: payload.studentEnrollCourseId,
         },
-      },
-      academicSemester: {
-        connect: {
+        academicSemester: {
           id: payload.academicSemester,
         },
       },
-      examType: ExamTypeStatus.MIDTERM,
-    },
-  });
+    });
+
+  if (!isExistMidtermData) {
+    await prismaClient.studentEnrolledCourseMark.create({
+      data: {
+        student: {
+          connect: {
+            id: payload.studentId,
+          },
+        },
+        studentEnrolledCourse: {
+          connect: {
+            id: payload.studentEnrollCourseId,
+          },
+        },
+        academicSemester: {
+          connect: {
+            id: payload.academicSemester,
+          },
+        },
+        examType: ExamTypeStatus.MIDTERM,
+      },
+    });
+  }
 
   //for final
-  await prismaClient.studentEnrolledCourseMark.create({
-    data: {
-      student: {
-        connect: {
+  const isExistFinalData =
+    await prismaClient.studentEnrolledCourseMark.findFirst({
+      where: {
+        examType: ExamTypeStatus.FINAL,
+        student: {
           id: payload.studentId,
         },
-      },
-      studentEnrolledCourse: {
-        connect: {
+        studentEnrolledCourse: {
           id: payload.studentEnrollCourseId,
         },
-      },
-      academicSemester: {
-        connect: {
+        academicSemester: {
           id: payload.academicSemester,
         },
       },
-      examType: ExamTypeStatus.FINAL,
-    },
-  });
+    });
+
+  if (!isExistFinalData) {
+    await prismaClient.studentEnrolledCourseMark.create({
+      data: {
+        student: {
+          connect: {
+            id: payload.studentId,
+          },
+        },
+        studentEnrolledCourse: {
+          connect: {
+            id: payload.studentEnrollCourseId,
+          },
+        },
+        academicSemester: {
+          connect: {
+            id: payload.academicSemester,
+          },
+        },
+        examType: ExamTypeStatus.FINAL,
+      },
+    });
+  }
 };
 
 export const StudentEnrolledCourseMarkService = {
