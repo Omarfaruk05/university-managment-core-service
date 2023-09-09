@@ -181,8 +181,8 @@ model SemesterRegistration {
   maxCredit                          Int                                 @default(0)
   createdAt                          DateTime                            @default(now())
   updatedAt                          DateTime                            @updatedAt
-  academecSemesterId                 String
-  academicSemester                   AcademicSemester                    @relation(fields: [academecSemesterId], references: [id])
+  academicSemesterId                 String
+  academicSemester                   AcademicSemester                    @relation(fields: [academicSemesterId], references: [id])
   offeredCourses                     OfferedCourse[]
   offeredCourseSections              OfferedCourseSection[]
   offeredCourseClassSchedules        OfferedCourseClassSchedule[]
@@ -314,12 +314,13 @@ model StudentEnrolledCourseMark {
 
 model StudentSemesterPayment {
   id                   String           @id @default(uuid())
-  sutudentId           String
-  student              Student          @relation(fields: [sutudentId], references: [id])
+  studentId            String
+  student              Student          @relation(fields: [studentId], references: [id])
   academicSemesterId   String
-  academicSemseter     AcademicSemester @relation(fields: [academicSemesterId], references: [id])
+  academicSemester     AcademicSemester @relation(fields: [academicSemesterId], references: [id])
   fullPaymentAmount    Int?             @default(0)
   partialPaymentAmount Int?             @default(0)
+  totalDueAmount       Int?             @default(0)
   totalPaidAmount      Int?             @default(0)
   paymentStatus        PaymentStatus?   @default(PENDING)
 

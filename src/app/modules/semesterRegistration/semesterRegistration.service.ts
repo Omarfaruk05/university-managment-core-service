@@ -10,6 +10,8 @@ import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
+import { StudentEnrolledCourseMarkService } from '../studentEnrolledCouseMark/studentEnrolledCourseMark.service';
+import { StudentSemesterPaymentService } from '../studentSemesterPayment/studentSemesterPayment.service';
 import { StudentSemesterRegistrationCourseService } from '../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
 import { IEnrollCoursePayload } from './semesterRegistration.interface';
 
@@ -290,24 +292,39 @@ const startNewSemester = async (
     asyncForEach(
       studentSemesterRegistrations,
       async (studentSemReg: StudentSemesterRegistration) => {
+        if (studentSemReg.totalCreditTaken) {
+          const totalPaymentAmount = studentSemReg.totalCreditTaken * 5000;
+
+          await StudentSemesterPaymentService.createSemesterPayment(
+            prismaTransectionClient,
+            {
+              studentId: studentSemReg.studentId,
+              academicSemesterId: semesterRegistration.academicSemesterId,
+              totalPaymentAmount: totalPaymentAmount,
+            }
+          );
+        }
+
         const studentSemesterRegistrationCourses =
-          await prisma.studentSemesterRegistrationCourse.findMany({
-            where: {
-              semesterRegistration: {
-                id,
-              },
-              student: {
-                id: studentSemReg.studentId,
-              },
-            },
-            include: {
-              offeredCourse: {
-                include: {
-                  course: true,
+          await prismaTransectionClient.studentSemesterRegistrationCourse.findMany(
+            {
+              where: {
+                semesterRegistration: {
+                  id,
+                },
+                student: {
+                  id: studentSemReg.studentId,
                 },
               },
-            },
-          });
+              include: {
+                offeredCourse: {
+                  include: {
+                    course: true,
+                  },
+                },
+              },
+            }
+          );
 
         asyncForEach(
           studentSemesterRegistrationCourses,
@@ -318,24 +335,35 @@ const startNewSemester = async (
               };
             }
           ) => {
-            const isExistEnrolledData = prisma.studentEnrolledCourse.findFirst({
-              where: {
-                studentId: item.studentId,
-                courseId: item.offeredCourse.courseId,
-                academicSemesterId: semesterRegistration.academecSemesterId,
-              },
-            });
+            const isExistEnrolledData =
+              prismaTransectionClient.studentEnrolledCourse.findFirst({
+                where: {
+                  studentId: item.studentId,
+                  courseId: item.offeredCourse.courseId,
+                  academicSemesterId: semesterRegistration.academicSemesterId,
+                },
+              });
 
             if (!isExistEnrolledData) {
               const enrolledCourseData = {
                 studentId: item.studentId,
                 courseId: item.offeredCourse.courseId,
-                academicSemesterId: semesterRegistration.academecSemesterId,
+                academicSemesterId: semesterRegistration.academicSemesterId,
               };
 
-              await prisma.studentEnrolledCourse.create({
-                data: enrolledCourseData,
-              });
+              const studentEnrollCourseData =
+                await prismaTransectionClient.studentEnrolledCourse.create({
+                  data: enrolledCourseData,
+                });
+
+              await StudentEnrolledCourseMarkService.createStudentEnrolledCourseDefaultMark(
+                prismaTransectionClient,
+                {
+                  studentId: studentEnrollCourseData.studentId,
+                  studentEnrollCourseId: studentEnrollCourseData.id,
+                  academicSemester: semesterRegistration.academicSemesterId,
+                }
+              );
             }
           }
         );
