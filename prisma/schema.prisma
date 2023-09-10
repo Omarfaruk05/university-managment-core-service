@@ -302,7 +302,7 @@ model StudentEnrolledCourseMark {
   studentEnrolledCourse   StudentEnrolledCourse @relation(fields: [studentEnrolledCourseId], references: [id])
   academicSemesterId      String
   academicSemester        AcademicSemester      @relation(fields: [academicSemesterId], references: [id])
-  grate                   String?
+  grade                   String?
   marks                   Int?
   examType                ExamTypeStatus?       @default(MIDTERM)
 
