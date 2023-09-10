@@ -6,6 +6,7 @@ import {
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
+import { StudentEnrolledCourseMarkUtils } from './studentEnrolledCourseMark.utils';
 
 const createStudentEnrolledCourseDefaultMark = async (
   prismaClient: Omit<
@@ -127,20 +128,7 @@ const updateStudentMarks = async (payload: any) => {
     );
   }
 
-  let grade = '';
-  if (marks >= 0 && marks <= 39) {
-    grade = 'F';
-  } else if (marks >= 40 && marks <= 50) {
-    grade = 'D';
-  } else if (marks >= 50 && marks <= 59) {
-    grade = 'C';
-  } else if (marks >= 60 && marks <= 69) {
-    grade = 'B';
-  } else if (marks >= 70 && marks <= 79) {
-    grade = 'A';
-  } else if (marks >= 80 && marks <= 109) {
-    grade = 'A+';
-  }
+  const resultIngrade = StudentEnrolledCourseMarkUtils.getGradeFromMarks(marks);
 
   const updateStudentMarks = await prisma.studentEnrolledCourseMark.update({
     where: {
@@ -148,7 +136,7 @@ const updateStudentMarks = async (payload: any) => {
     },
     data: {
       marks,
-      grade,
+      grade: resultIngrade.grade,
     },
   });
 
