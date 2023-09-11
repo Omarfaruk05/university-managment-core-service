@@ -4,9 +4,13 @@ import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
 import { OfferedCourseClassScheduleUtils } from '../offeredCourseClassSchedule/offeredCourseClassSchedules.utils';
+import {
+  IClassSchedule,
+  IOfferedCourseSectionCreate,
+} from './offeredCourseSection.interface';
 
 const insertIntoDB = async (
-  payload: any
+  payload: IOfferedCourseSectionCreate
 ): Promise<OfferedCourseSection | null> => {
   const { classSchedules, ...data } = payload;
 
@@ -22,7 +26,6 @@ const insertIntoDB = async (
       'Offered Course does not exist.'
     );
   }
-  data.semesterRegistrationId = isExistOfferedCourse.semesterRegistrationId;
 
   await asyncForEach(classSchedules, async (schdules: any) => {
     await OfferedCourseClassScheduleUtils.checkRoomAbailable(schdules);
@@ -45,10 +48,15 @@ const insertIntoDB = async (
   const createSection = await prisma.$transaction(async transactionClient => {
     const createOfferedCourseSection =
       await transactionClient.offeredCourseSection.create({
-        data,
+        data: {
+          title: data.title,
+          maxCapacity: data.maxCapacity,
+          offeredCourseId: data.offeredCourseId,
+          semesterRegistrationId: isExistOfferedCourse.semesterRegistrationId,
+        },
       });
 
-    const scheduleData = classSchedules.map((schedule: any) => ({
+    const scheduleData = classSchedules.map((schedule: IClassSchedule) => ({
       startTime: schedule.startTime,
       endTime: schedule.endTime,
       dayOfWeek: schedule.dayOfWeek,
@@ -58,7 +66,7 @@ const insertIntoDB = async (
       semesterRegistrationId: isExistOfferedCourse.semesterRegistrationId,
     }));
 
-    await transactionClient.offeredCourseClassSchedule.create({
+    await transactionClient.offeredCourseClassSchedule.createMany({
       data: scheduleData,
     });
     return createOfferedCourseSection;
