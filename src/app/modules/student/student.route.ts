@@ -8,7 +8,15 @@ import { StudentValidation } from './student.validation';
 const router = express.Router();
 
 router.get('/', StudentController.getAllFromDB);
+
+router.get(
+  '/my-courses',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.myCourses
+);
+
 router.get('/:id', StudentController.getSingleDataFromDB);
+
 router.post(
   '/',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
