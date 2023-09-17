@@ -1,15 +1,33 @@
 import { AcademicSemester, Prisma } from '@prisma/client';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { AcademicSemesterSearchableFildes } from './academicSemester.constant';
+import { RedisClient } from '../../../shared/redis';
+import {
+  AcademicSemesterSearchableFildes,
+  EVENT_ACADEMIC_SEMESTER_CREATED,
+  academicSemesterTitleCodeMapper,
+} from './academicSemester.constant';
 import { IAcademicSemesterFilters } from './academicSemester.interface';
 
 const insertToDB = async (
   data: AcademicSemester
 ): Promise<AcademicSemester> => {
+  if (academicSemesterTitleCodeMapper[data.title] !== data.code) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Semister Code');
+  }
+
   const result = await prisma.academicSemester.create({ data });
+
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_SEMESTER_CREATED,
+      JSON.stringify(result)
+    );
+  }
 
   return result;
 };
@@ -83,8 +101,42 @@ const getSingleDataById = async (
   return result;
 };
 
+const updateOneIntoDB = async (
+  id: string,
+  payload: Partial<AcademicSemester>
+): Promise<AcademicSemester> => {
+  const result = await prisma.academicSemester.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+  // if (result) {
+  //   await RedisClient.publish(
+  //     EVENT_ACADEMIC_SEMESTER_UPDATED,
+  //     JSON.stringify(result)
+  //   );
+  // }
+  return result;
+};
+
+const deleteByIdFromDB = async (id: string): Promise<AcademicSemester> => {
+  const result = await prisma.academicSemester.delete({
+    where: {
+      id,
+    },
+  });
+
+  // if (result) {
+  //     await RedisClient.publish(EVENT_ACADEMIC_SEMESTER_DELETED, JSON.stringify(result));
+  // }
+  return result;
+};
+
 export const AcademicSemesterService = {
   insertToDB,
   getAllFromDB,
   getSingleDataById,
+  updateOneIntoDB,
+  deleteByIdFromDB,
 };
