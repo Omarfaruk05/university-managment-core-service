@@ -8,10 +8,18 @@ import {
 const createZodSchema = z.object({
   body: z.object({
     year: z.string({ required_error: 'Year is required.' }),
-    title: z.string({ required_error: 'Title is required' }),
-    code: z.string({ required_error: 'Code is required' }),
-    startMonth: z.string({ required_error: 'Start Month is required.' }),
-    endMonth: z.string({ required_error: 'End Month is required.' }),
+    title: z.enum([...academicSemesterTitles] as [string, ...string[]], {
+      required_error: 'Title is required',
+    }),
+    code: z.enum([...academicSemesterCodes] as [string, ...string[]], {
+      required_error: 'Code is required',
+    }),
+    startMonth: z.enum([...academicSemesterMonths] as [string, ...string[]], {
+      required_error: 'Start Month is required.',
+    }),
+    endMonth: z.enum([...academicSemesterMonths] as [string, ...string[]], {
+      required_error: 'End Month is required.',
+    }),
   }),
 });
 

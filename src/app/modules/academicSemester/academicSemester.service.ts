@@ -22,6 +22,21 @@ const insertToDB = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Semister Code');
   }
 
+  const isExist = await prisma.academicSemester.findFirst({
+    where: {
+      title: data.title,
+      year: data.year,
+      code: data.code,
+    },
+  });
+
+  if (isExist) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Academic semester is already exist!'
+    );
+  }
+
   const result = await prisma.academicSemester.create({ data });
 
   if (result) {
