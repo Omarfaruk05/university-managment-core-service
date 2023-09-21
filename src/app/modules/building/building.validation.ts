@@ -1,11 +1,18 @@
 import { z } from 'zod';
 
-const createZodSchema = z.object({
+const createBuildingZodSchema = z.object({
   body: z.object({
     title: z.string({ required_error: 'Title is required.' }),
   }),
 });
 
-export const buildingValidation = {
-  createZodSchema,
+const updateBuildingZodSchema = z.object({
+  body: z.object({
+    title: z.string().optional(),
+  }),
+});
+
+export const BuildingValidation = {
+  createBuildingZodSchema,
+  updateBuildingZodSchema,
 };
