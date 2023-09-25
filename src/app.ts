@@ -16,7 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
+app.get('/', (req, res) => {
+  res.send('Core service server started succssfully');
+});
 
+app.use('/api/v1', routes);
 
 //global error handler
 app.use(globalErrorHandler);

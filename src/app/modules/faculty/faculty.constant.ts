@@ -1,35 +1,34 @@
-export const studentFilterableFields: string[] = [
+export const facultyFilterableFields: string[] = [
   'searchTerm',
-  'studentId',
+  'facultyId',
   'email',
   'contactNo',
   'gender',
   'bloodGroup',
   'gender',
+  'designation',
   'academicFacultyId',
   'academicDepartmentId',
-  'academicSemesterId',
 ];
 
-export const studentSearchableFields: string[] = [
+export const facultySearchableFields: string[] = [
   'firstName',
   'lastName',
   'middleName',
   'email',
   'contactNo',
-  'studentId',
+  'facultyId',
+  'designation',
 ];
 
-export const studentRelationalFields: string[] = [
+export const facultyRelationalFields: string[] = [
   'academicFacultyId',
   'academicDepartmentId',
-  'academicSemesterId',
 ];
-export const studentRelationalFieldsMapper: { [key: string]: string } = {
+export const facultyRelationalFieldsMapper: { [key: string]: string } = {
   academicFacultyId: 'academicFaculty',
   academicDepartmentId: 'academicDepartment',
-  academicSemesterId: 'academicSemester',
 };
 
-export const EVENT_STUDENT_CREATED = 'student.created';
 export const EVENT_FACULTY_CREATED = 'faculty.created';
+export const EVENT_FACULTY_UPDATED = 'faculty.updated';

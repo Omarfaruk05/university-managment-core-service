@@ -7,9 +7,11 @@ import { FacultyValidation } from './faculty.validation';
 
 const router = express.Router();
 
+router.get('/', FacultyController.getAllFromDB);
+
 router.get(
   '/my-courses',
-  //   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   FacultyController.myCourses
 );
 
@@ -21,9 +23,22 @@ router.get(
 
 router.post(
   '/',
-  //   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(FacultyValidation.createZodSchema),
   FacultyController.insertToDB
+);
+
+router.patch(
+  '/:id',
+  validateRequest(FacultyValidation.updateZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FacultyController.updateOneInDB
+);
+
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FacultyController.deleteByIdFromDB
 );
 
 router.post(

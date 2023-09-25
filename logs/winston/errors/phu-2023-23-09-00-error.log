@@ -1,0 +1,25 @@
+Sat Sep 23 2023 0:24:58 } [PH] error: 
+Invalid `prisma.student.create()` invocation:
+
+{
+  data: {
+    studentId: "100300005",
+    firstName: "Mehedi",
+    lastName: "Hassan",
+    email: "mehedihasan@gmail.com",
+    contactNo: "user_5",
+    gender: "male",
+    bloodGroup: "O+",
+    academicDepartmentId: "5a40b5d1-3db5-47fa-87dc-51c33ba3ecb8",
+    academicFacultyId: "085ca1c9-084a-4847-8c59-1724c7c6c80c",
+    academicSemesterId: "94595095-df6b-4798-8111-93fa3bffdd1d",
++   middleName: String
+  },
+  include: {
+    academicDepartment: true,
+    academicFaculty: true,
+    academicSemester: true
+  }
+}
+
+Argument `middleName` is missing.

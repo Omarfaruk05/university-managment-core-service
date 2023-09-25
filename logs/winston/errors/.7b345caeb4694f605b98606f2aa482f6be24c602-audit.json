@@ -54,6 +54,46 @@
             "date": 1695143340465,
             "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-19-09-23-error.log",
             "hash": "192e325c6352d24ff712fbece92171b07509f3dd1e86cf9dca2ec220af15ab0d"
+        },
+        {
+            "date": 1695318628642,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-21-09-23-error.log",
+            "hash": "f3e52d41c3299e697f57d2f97aa595a21f002c34be458bcf1f016d30dfb1e4d2"
+        },
+        {
+            "date": 1695372969719,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-22-09-14-error.log",
+            "hash": "e302a0b5cc746508bf77d9a0ae356d7841f7f8ce6a4bcb9cdb101be68367a2df"
+        },
+        {
+            "date": 1695390601900,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-22-09-19-error.log",
+            "hash": "74551f64d101ed8b7026385d0043edbbc3bd62cf6515bf54d1e2b55b16d492a7"
+        },
+        {
+            "date": 1695392743006,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-22-09-20-error.log",
+            "hash": "7056697fdbdea783ecf6e9be23d668c91924ebf4ae87c20f802d19558b771746"
+        },
+        {
+            "date": 1695407087687,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-23-09-00-error.log",
+            "hash": "c1972a7af8067e44b50100d8b02114cc99ab53c436ac42d3fdd4fe2f8029a7a7"
+        },
+        {
+            "date": 1695567582172,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-24-09-20-error.log",
+            "hash": "92dceb83c9c55ffe558565cbdac584fc8e5eea0cb7bf4824670bd2167ff16e0f"
+        },
+        {
+            "date": 1695569455563,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-24-09-21-error.log",
+            "hash": "c1fd8cd0ac5780579d9ee8075f5b8403bbab80fd1de3c9f47b0ac1831fa8886a"
+        },
+        {
+            "date": 1695665343987,
+            "name": "D:\\PROGRAMMING HERO\\NEXT LEVEL\\MODULES\\MODULE_35_CORE_SERVICE\\logs\\winston\\errors\\phu-2023-26-09-00-error.log",
+            "hash": "a31fcecff183ce02080362422f240ae1d602433880320ee5821afac0cb76022f"
         }
     ],
     "hashType": "sha256"
