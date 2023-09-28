@@ -7,16 +7,15 @@ import { academicSemesterValidation } from './academicSemester.validation';
 
 const router = express.Router();
 
-router.get('/', AcademicSemesterController.getAllFromDB);
-
-router.get('/:id', AcademicSemesterController.getSingleDataById);
-
 router.post(
   '/',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(academicSemesterValidation.createZodSchema),
   AcademicSemesterController.insertToDB
 );
+
+router.get('/', AcademicSemesterController.getAllFromDB);
+router.get('/:id', AcademicSemesterController.getSingleDataById);
 
 router.patch(
   '/:id',

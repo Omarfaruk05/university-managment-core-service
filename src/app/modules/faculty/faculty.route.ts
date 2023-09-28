@@ -55,4 +55,4 @@ router.delete(
   FacultyController.removeCourses
 );
 
-export const AcademicFacultyRoutes = router;
+export const FacultyRoutes = router;

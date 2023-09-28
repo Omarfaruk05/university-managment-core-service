@@ -7,26 +7,40 @@ import { CourseValidation } from './course.validation';
 
 const router = express.Router();
 
+router.get('/', CourseController.getAllFromDB);
+router.get('/:id', CourseController.getByIdFromDB);
+
 router.post(
   '/',
-  //   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  validateRequest(CourseValidation.createCourseZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   CourseController.insertIntoDB
 );
+
 router.patch(
-  '/',
-  //   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  '/:id',
+  validateRequest(CourseValidation.updateCourseZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   CourseController.updateOneInDB
 );
+
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  CourseController.deleteByIdFromDB
+);
+
 router.post(
   '/:id/assign-faculties',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(CourseValidation.assignOrRemoveFacultiesZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   CourseController.assignFaculties
 );
+
 router.delete(
   '/:id/remove-faculties',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(CourseValidation.assignOrRemoveFacultiesZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   CourseController.removeFaculties
 );
 
