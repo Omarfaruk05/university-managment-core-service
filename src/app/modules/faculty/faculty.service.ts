@@ -15,7 +15,13 @@ import {
 } from './faculty.interface';
 
 const insertToDB = async (data: Faculty): Promise<Faculty> => {
-  const result = await prisma.faculty.create({ data });
+  const result = await prisma.faculty.create({
+    data,
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+    },
+  });
 
   return result;
 };
@@ -343,6 +349,7 @@ const getMyCourseStudents = async (
     data: students,
   };
 };
+
 const createFacultyFromEvent = async (
   e: FacultyCreatedEvent
 ): Promise<void> => {
